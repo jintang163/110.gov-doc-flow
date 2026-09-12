@@ -1,0 +1,53 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gongwen-server
+  datasource:
+    url: jdbc:h2:file:./data/gwdb
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 60MB
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss
+
+# Camunda 流程引擎
+camunda:
+  bpm:
+    database:
+      schema-update: true
+    generic-properties:
+      properties:
+        historyTimeToLive: P180D
+
+app:
+  # token 存储：memory(单机默认) | redis(集群)
+  token-store: memory
+  token-ttl-hours: 12
+  # 待办推送：stomp(单机默认) | redis(多实例广播)
+  push: stomp
+  # 存储：local(默认) | minio
+  storage:
+    type: local
+    local-dir: ./data/files
+    minio:
+      endpoint: http://localhost:9000
+      access-key: minioadmin
+      secret-key: minioadmin
+      bucket: gongwen
+  redis:
+    host: localhost
+    port: 6379
+  pdf:
+    # 中文字体（TTF/TTC）。留空则依次尝试：classpath:fonts/gongwen.ttf -> 常见系统字体路径
+    font-path: ""
