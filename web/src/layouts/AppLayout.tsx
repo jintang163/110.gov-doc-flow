@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Avatar, Badge, Button, Dropdown, Layout, Menu, Space, Tag } from 'antd'
 import {
+  BarChartOutlined,
   BellOutlined,
   FileAddOutlined,
   FileDoneOutlined,
@@ -62,6 +63,7 @@ export default function AppLayout() {
     { key: '/archives', icon: <FileProtectOutlined />, label: '归档查询' },
     ...(user.admin
       ? [
+          { key: '/admin/analysis', icon: <BarChartOutlined />, label: '效能看板' },
           {
             key: 'admin',
             icon: <SettingOutlined />,

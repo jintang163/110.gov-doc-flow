@@ -36,6 +36,9 @@ app:
   token-ttl-hours: 12
   # 待办推送：stomp(单机默认) | redis(多实例广播)
   push: stomp
+  # 效能分析：定时抽取间隔（毫秒），从 ACT_HI_* 历史表与业务库刷新 doc_analysis 并生成督办单
+  analysis:
+    extract-interval-ms: 600000
   # 存储：local(默认) | minio
   storage:
     type: local

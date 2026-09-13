@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+import { Suspense, lazy } from 'react'
 import Login from './pages/Login'
 import AppLayout from './layouts/AppLayout'
 import TodoPage from './pages/TodoPage'
@@ -15,6 +16,9 @@ import SealsPage from './pages/admin/SealsPage'
 import UsersPage from './pages/admin/UsersPage'
 import OrgsPage from './pages/admin/OrgsPage'
 
+// 效能看板含 ECharts，体积较大，按需加载
+const AnalysisPage = lazy(() => import('./pages/admin/AnalysisPage'))
+
 export default function App() {
   return (
     <Routes>
@@ -29,6 +33,7 @@ export default function App() {
         <Route path="search" element={<SearchPage />} />
         <Route path="archives" element={<ArchivePage />} />
         <Route path="notifications" element={<NotificationsPage />} />
+        <Route path="admin/analysis" element={<Suspense fallback={null}><AnalysisPage /></Suspense>} />
         <Route path="admin/templates" element={<TemplatesPage />} />
         <Route path="admin/flows" element={<FlowsPage />} />
         <Route path="admin/seals" element={<SealsPage />} />

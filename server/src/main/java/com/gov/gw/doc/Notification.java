@@ -12,6 +12,7 @@ public class Notification {
     public static final String TYPE_OVERDUE = "OVERDUE";
     public static final String TYPE_RETURN = "RETURN";
     public static final String TYPE_ARCHIVE = "ARCHIVE";
+    public static final String TYPE_SUPERVISE = "SUPERVISE";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

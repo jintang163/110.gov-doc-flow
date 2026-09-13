@@ -176,3 +176,82 @@ export const NODE_MODE_TEXT: Record<string, string> = {
   ANY: '或签(任一)',
   SEQUENCE: '串签(依次)',
 }
+
+// ==================== 效能分析 ====================
+
+export interface AnalysisOverview {
+  total: number
+  archived: number
+  running: number
+  returned: number
+  avgTotalHours: number
+  avgDraftHours: number
+  returnRate: number
+  openReminders: number
+}
+
+export interface EfficiencyRow {
+  name: string
+  count: number
+  avgDraftHours: number
+  avgHandleHours: number
+  avgCountersignHours: number
+  avgTotalHours: number
+}
+
+export interface TrendRow {
+  month: string
+  count: number
+  avgTotalHours: number
+  avgDraftHours: number
+}
+
+export interface NodeDurationRow {
+  name: string
+  count: number
+  avgHours: number
+  maxHours: number
+}
+
+export interface ReturnAnalysis {
+  total: number
+  categories: { name: string; count: number; percent: number }[]
+  wordCloud: { name: string; value: number }[]
+  recent: {
+    docId: number
+    title: string
+    nodeName?: string
+    actorName?: string
+    comment: string
+    category: string
+    at?: string
+  }[]
+}
+
+export interface RankingRow {
+  rank: number
+  name: string
+  orgName?: string
+  count: number
+  avgHours?: number
+  avgTotalHours?: number
+  avgDraftHours?: number
+  returnCount?: number
+}
+
+export interface ReminderItem {
+  id: number
+  docId: number
+  docNo?: string
+  title: string
+  orgName?: string
+  reason: string
+  overdueDays: number
+  urgeCount: number
+  currentNodeName?: string
+  assigneeNames?: string
+  leaderName?: string
+  status: 'OPEN' | 'HANDLED'
+  createdAt: string
+  handledAt?: string
+}
