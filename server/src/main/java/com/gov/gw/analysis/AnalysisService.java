@@ -179,7 +179,7 @@ public class AnalysisService {
         List<NodeStat> stats = new ArrayList<>();
         for (HistoricProcessInstance hpi : instances) {
             for (HistoricTaskInstance hti : historyService.createHistoricTaskInstanceQuery()
-                    .processInstanceId(hpi.getProcessInstanceId()).list()) {
+                    .processInstanceId(hpi.getId()).list()) {
                 if (hti.getTaskDefinitionKey() == null || hti.getStartTime() == null) continue;
                 DocTask bt = byCamundaId.get(hti.getId());
                 Long assigneeId = bt != null ? bt.getAssigneeId() : parseLong(hti.getAssignee());
@@ -436,13 +436,14 @@ public class AnalysisService {
         });
         if (recent.size() > 20) recent = new ArrayList<>(recent.subList(0, 20));
 
+        final int totalFinal = total;
         List<Map<String, Object>> categories = categoryCount.entrySet().stream()
                 .filter(e -> e.getValue() > 0)
                 .map(e -> {
                     Map<String, Object> m = new LinkedHashMap<>();
                     m.put("name", e.getKey());
                     m.put("count", e.getValue());
-                    m.put("percent", total == 0 ? 0 : round1(100.0 * e.getValue() / total));
+                    m.put("percent", totalFinal == 0 ? 0 : round1(100.0 * e.getValue() / totalFinal));
                     return m;
                 })
                 .sorted((a, b) -> Integer.compare((int) b.get("count"), (int) a.get("count")))
